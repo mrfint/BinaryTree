@@ -1,6 +1,9 @@
 
 package binarytreeLink;
 
+import java.awt.Graphics;
+import javax.swing.JPanel;
+
 public class Tree {
     Link root = new Link();
     
@@ -154,6 +157,45 @@ public class Tree {
         if (r.x == null) {      return 0;                            }
         else {
             return 1 + Math.max(height(r.x.left), height(r.x.right));
+        }
+    }
+
+    public void random() {
+        int n = 100;
+        root = new Link();
+        addNode(n/2);
+        for (int i = 0; i < 20; i++) {
+             addNode((int)(n-Math.random()*100));
+        }
+//        int[] a = new int[]{50,25,10,30,100,11,120,130,115,125};
+//        addNode(a);
+    }
+
+    public void showTree(JPanel p) {
+        stree(p.getGraphics(), 0 , p.getWidth(), DY, root, 0);
+
+    }
+    final int DY = 50;
+    private void stree(Graphics g, int x1, int x2, int y, Link r, int direction) {
+        final int R = 40;
+        
+        if(r.x!=null)
+        {
+            int x = (x1+x2)/2;
+            if(direction == 0){
+                g.drawLine(x, y-10, x, y);
+            }
+            if(direction == -1){
+                g.drawLine(x2, y-(DY-R), x, y);
+            }
+            if(direction == 1){
+                g.drawLine(x1, y-(DY-R), x, y);
+            }
+            g.drawOval(x-R/2, y, R, R);
+            g.drawString(""+r.x.getVal(), x-R/4, y+R/2+5);
+            stree( g, x1, x, y+DY, r.x.left, -1);
+            
+            stree( g, x, x2, y+DY, r.x.right, 1);
         }
     }
 }

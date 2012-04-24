@@ -47,9 +47,10 @@ public class Tree {
    public void delNode(int key){
         Node prev = findPrevNode(root, key);
         if( count==1 && root.getVal() == key) {     // find root, count = 1
-            prev = root;
+            root = null;
+            count--;
         }
-        if( prev == null ) return;                  // find nothing
+        if( prev == null) return;                  // find nothing
         //******************************************// find something
         Node curr = null;
         if( prev.left!=null && prev.left.getVal()==key ){
@@ -85,13 +86,9 @@ public class Tree {
                 {
                     Node dnLeft = searchDnLeft(curr.right);
                     dnLeft.left = curr.left;
-                    
-                    if(prev.left.getVal()==key){
-                        prev.left = curr.right;
-                    }
-                    else {
-                        prev.right = curr.right;
-                    }
+                    curr.setVal(curr.right.getVal());
+                    curr.left  = curr.right.left;
+                    curr.right = curr.right.right;
                 }
             }
         }

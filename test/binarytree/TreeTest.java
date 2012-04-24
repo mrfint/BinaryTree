@@ -92,6 +92,16 @@ public class TreeTest {
         tree.delNode(11);
         assertArrayEquals(new int[]{10, 25, 30, 50, 100}, tree.toArray());
     }
+    @Test
+    public void testManyDelNodeByKey(){
+        int[] a = new int[]{50,25,10,30,100,11};
+        tree.addNode(a);
+        tree.printLikeTree();
+
+        tree.delNode(25);
+
+        assertArrayEquals(new int[]{10, 11, 30, 50, 100}, tree.toArray());
+    }
     
     @Test
     public void testManyDelRootNodeByKey(){
@@ -99,10 +109,10 @@ public class TreeTest {
         tree.addNode(a);
         tree.printLikeTree();
 
-        tree.delNode(25);
+        tree.delNode(50);
         System.out.println("!!");
         tree.printLikeTree();
-        assertArrayEquals(new int[]{10, 11, 30, 50, 100}, tree.toArray());
+        assertArrayEquals(new int[]{10, 11, 25, 30, 100}, tree.toArray());
     }
    
 }
