@@ -1,17 +1,13 @@
 
-package binarytree;
+package binarytreeLink;
 
-import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
-
+import binarytreeLink.Tree;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 
 public class TreeTest {
-    private Tree tree = null;
+    Tree tree = null;
     @Before
     public void setUp() throws InstantiationException, IllegalAccessException{
         
@@ -97,12 +93,8 @@ public class TreeTest {
     public void testManyDelRootNodeByKey(){
         int[] a = new int[]{50,25,10,30,100,11};
         tree.addNode(a);
-        tree.printLikeTree();
-
-        tree.delNode(25);
-        System.out.println("!!");
-        tree.printLikeTree();
-        assertArrayEquals(new int[]{10, 11, 30, 50, 100}, tree.toArray());
+        tree.delNode(50);
+        assertArrayEquals(new int[]{10, 11, 25, 30, 100}, tree.toArray());
     }
    
 }

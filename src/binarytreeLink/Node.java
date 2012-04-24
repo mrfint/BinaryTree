@@ -1,5 +1,5 @@
 
-package newbinarytree;
+package binarytreeLink;
 
 public class Node {
     private int val;

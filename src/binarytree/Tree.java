@@ -1,113 +1,191 @@
 
 package binarytree;
 
-
 public class Tree {
-    private Node rt = null;
+    private Node root = null;
     private int count = 0;
 
     public void addNode(int val){
         count++;
-        rt = stree(rt, rt, val);
+        if(root==null)
+        {
+            root = new Node(val);
+        }
+        else
+        {
+            insNode(root, new Node(val));
+        }
     }
+    
+    private void insNode( Node r, Node p )
+    {   
+        if(p.getVal() < r.getVal() ) 
+        {   
+            if(r.left == null){
+                r.left = p ;
+            }
+            else insNode(r.left, p);
+        }
+        else
+        {
+            if(r.right == null){
+                r.right = p ;
+            }
+            else insNode(r.right, p);
+        }
+    }
+    
     public void addNode(int[] a){
         for(int val: a ){
             addNode(val);
         }
     }
-    
-    public void inOrder(){
- //       funInOrder(rt);
- //       preorder(rt);
-        print_tree(rt, 0);
-    }
-    
-    public void inWidth(){
- //       funInOrder(rt);
-        System.out.println("");
-        preorder(rt);
-
-    }
-    public int getHeight(){
-        return height(rt);   
-    }
-    public int getWidth(){
-        return width(rt);   
-    }
-    
-    private int height(Node node){
-        if (node == null) {      return 0;                            }
-        else {
-            return 1 + Math.max(height(node.left), height(node.right));
-        }
-    }
-    
-    private int width(Node node){
-        if (node == null) {      return 0;                            }
-        else {
-            return (int) Math.pow(2, Math.min(width(node.left), width(node.right)));
-        }
-    }
-
+ 
     public int getCount() {
         return count;
     }
-    
-    
-    private Node stree( Node root, Node r, int val)
-    {   
-        if(r==null) 
-        {   
-            r = new Node(val);
+   public void delNode(int key){
+        Node prev = findPrevNode(root, key);
+        if( count==1 && root.getVal() == key) {     // find root, count = 1
+            prev = root;
+        }
+        if( prev == null ) return;                  // find nothing
+        //******************************************// find something
+        Node curr = null;
+        if( prev.left!=null && prev.left.getVal()==key ){
+            curr = prev.left;
+        }
+        else{
+            curr = prev.right;
+        }
 
-            if(root == null) return r;
-            if(val < root.val) root.left = r;
-            else root.right = r;
+        if(curr!=null)
+        {
+            if(curr.right==curr.left)
+            {
+                if(prev.left!=null && prev.left.getVal()==key){
+                    prev.left = null;
+                }
+                else {
+                    prev.right = null;
+                }
+            }
+            else
+            {
+                if(curr.right == null)
+                {
+                    if(prev.left!=null && prev.left.getVal()==key){
+                        prev.left = curr.left.left;
+                    }
+                    else {
+                        prev.right = curr.left.left;
+                    }
+                }
+                else
+                {
+                    Node dnLeft = searchDnLeft(curr.right);
+                    dnLeft.left = curr.left;
+                    
+                    if(prev.left.getVal()==key){
+                        prev.left = curr.right;
+                    }
+                    else {
+                        prev.right = curr.right;
+                    }
+                }
+            }
+        }
+        count--;
+    }
+    
+    public void print(){
+        nPrint(root);
+    }
+    ;
+    public int[] toArray(){
+        countArr = 0;
+        int[] a = new int[getCount()];
+        
+        nArray(root, a);
+        return a;
+    }
+    private int countArr;
+    private void nArray(Node r, int[] a) {
+        if( r != null )
+        {
+            nArray(r.left, a);
+            a[countArr++] = r.getVal();
+            nArray(r.right, a);
+        }
+    }
+    
+    public void printLikeTree(){
+        print_tree(root,0);
+    }
+    
+    public int getHeight(){
+        return height(root);
+    }
+
+    private void nPrint(Node r) {
+        if( r != null )
+        {
+            nPrint(r.left);
+            System.out.print(" "+r.getVal());
+            nPrint(r.right);
+        }
+    }
+
+    private Node findPrevNode(Node r, int key) {
+        if (r == null) 
+        {
             return r;
         }
-        if( val < r.val ) stree(r, r.left, val);
-        else stree(r, r.right, val);
-        return root;
+
+        while (true) 
+        {   
+            if (key < r.getVal())
+            {
+                if( (r.left!=null) && (r.left.getVal() == key) ){
+                    return r;
+                }
+                r = r.left;
+            }
+            else
+            {
+                if( (r.right!=null) && (r.right.getVal() == key) ){
+                    return r;
+                }
+                r = r.right;
+            }
+            if(r == null) break;
+        }
+        return r;
     }
-     
-    private void funInOrder( Node root){
-        if( root == null ) return;
-        
-        funInOrder(root.left);
-        System.out.print(" " + root.val);
-        funInOrder(root.right);
-    }
-    private void print_tree( Node root, int l){       
+
+    private void print_tree(Node root, int l) {
         if( root == null ) return;
         
         print_tree(root.right, l+1);
         for (int i = 0; i < l; i++) {
             System.out.print("\t");
         }
-        System.out.print(" " + root.val+"\n");
+        System.out.print(" " + root.getVal()+"\n");
         print_tree(root.left, l+1);
     }
+
+    private Node searchDnLeft(Node r) {
+        while (r.left != null) 
+        {
+            r = r.left;
+        }
+        return r;
+    }
     
-    
-    private void preorder(Node root){
-        
-        if( root == null ) return;
-        
-        preorder(root.left);
-        preorder(root.right);
-        System.out.print(" " + root.val);
+     private int height(Node r){
+        if (r == null) {      return 0;                            }
+        else {
+            return 1 + Math.max(height(r.left), height(r.right));
+        }
     }
 }
-class Node{
-        int val;
-        Node left;
-        Node right;
-
-    public Node() {
-    }
-        
-    public Node(int val) {
-        this.val = val;
-    }
-        
-    }

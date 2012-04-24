@@ -1,5 +1,5 @@
 
-package newbinarytree;
+package binarytreeLink;
 
 public class Tree {
     Link root = new Link();
@@ -16,7 +16,7 @@ public class Tree {
     
     public void delNode(int val){
         Link curr = findPrevNode(root, val);
-        if(curr!=null)
+        if(curr.x!=null)
         {
             if(curr.x.right.x==curr.x.left.x)
             {
@@ -45,6 +45,24 @@ public class Tree {
     public void print(){
         nPrint(root);
     }
+    ;
+    public int[] toArray(){
+        countArr = 0;
+        int[] a = new int[getCount()];
+        
+        nArray(root, a);
+        return a;
+    }
+    private int countArr;
+    private void nArray(Link r, int[] a) {
+        if( r.x != null )
+        {
+            nArray(r.x.left, a);
+            a[countArr++] = r.x.getVal();
+            nArray(r.x.right, a);
+        }
+    }
+    
     public void printLikeTree(){
         print_tree(root,0);
     }
@@ -89,6 +107,8 @@ public class Tree {
             nPrint(r.x.right);
         }
     }
+    
+    
 
     private Link findPrevNode(Link r, int key) {
         if (r.x == null) 
@@ -126,7 +146,6 @@ public class Tree {
         while (r.x.left.x != null) 
         {
             r = r.x.left;
-            
         }
         return r;
     }
