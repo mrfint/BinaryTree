@@ -116,5 +116,14 @@ public class TreeTest {
         tree2.addNode(a2);
         assertFalse(tree.equals(tree2));
     }
+    @Test
+    public void testEqualsTree(){
+        int[] a = new int[]{50,25,10,30,100,11};
+        tree.addNode(a);
+        System.out.println("");
+        Tree tree2 = tree.clone();
+        assertEquals(tree, tree2);
+    }
+    
    
 }

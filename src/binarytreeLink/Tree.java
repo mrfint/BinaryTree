@@ -182,7 +182,21 @@ public class Tree {
         }
     }
     
+    public Tree clone(){
+        Tree nTree = new Tree();
+        nClone(root, nTree);
+        return nTree;
+    }
     
+    private void nClone(Link r, Tree nTree) {
+        if( r.x != null )
+        {
+            nTree.addNode(r.x.getVal());
+            nClone(r.x.right, nTree);
+            nClone(r.x.left , nTree);
+            
+        }
+    }
 
     public void random() {
         int n = 150;
@@ -231,4 +245,5 @@ public class Tree {
         res = compare(r1.x.right, r2.x.right);
         return res;
     }
+    
 }
