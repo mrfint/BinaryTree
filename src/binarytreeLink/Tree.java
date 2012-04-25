@@ -110,9 +110,7 @@ public class Tree {
             nPrint(r.x.right);
         }
     }
-    
-    
-
+ 
     private Link findPrevNode(Link r, int key) {
         if (r.x == null) 
         {
@@ -159,18 +157,42 @@ public class Tree {
             return 1 + Math.max(height(r.x.left), height(r.x.right));
         }
     }
+     
+    public boolean equals(Object obj)
+    {
+        if(obj == this)
+        return true;
+
+        /* obj ссылается на null */
+
+        if(obj == null)
+        return false;
+
+        /* Удостоверимся, что ссылки имеют тот же самый тип */
+
+        if(!(getClass() == obj.getClass()))
+        return false;
+        else
+        {
+        Tree tmp = (Tree)obj;
+        if(compare(this.root, tmp.root))
+        return true;
+        else
+        return false;
+        }
+    }
+    
+    
 
     public void random() {
-        int n = 100;
+        int n = 150;
         root = new Link();
         addNode(n/2);
         for (int i = 0; i < 20; i++) {
-             addNode((int)(n-Math.random()*100));
+             addNode((int)(n-Math.random()*n));
         }
-//        int[] a = new int[]{50,25,10,30,100,11,120,130,115,125};
-//        addNode(a);
     }
-
+    
     public void showTree(JPanel p) {
         stree(p.getGraphics(), 0 , p.getWidth(), DY, root, 0);
 
@@ -197,5 +219,16 @@ public class Tree {
             
             stree( g, x, x2, y+DY, r.x.right, 1);
         }
+    }
+    private boolean res = true;
+    private boolean compare(Link r1, Link r2) {
+        if(!res) return false;
+        if(r1.x == r2.x){
+            return true;
+        }
+        if(r1.x.getVal()!=r2.x.getVal())    res = false;
+        res = compare(r1.x.left, r2.x.left);
+        res = compare(r1.x.right, r2.x.right);
+        return res;
     }
 }

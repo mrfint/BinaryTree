@@ -96,5 +96,25 @@ public class TreeTest {
         tree.delNode(50);
         assertArrayEquals(new int[]{10, 11, 25, 30, 100}, tree.toArray());
     }
+    
+    @Test
+    public void testManyEqualsNodeByKey(){
+        int[] a = new int[]{50,25,10,30,100,11};
+        
+        Tree tree2 = new Tree();
+        tree.addNode(a);
+        tree2.addNode(a);
+        assertEquals(tree, tree2);
+    }
+    
+    @Test
+    public void testManyEqualsDifTree(){
+        int[] a = new int[]{50,25,10,30,100,11};
+        tree.addNode(a);
+        Tree tree2 = new Tree();
+        int[] a2 = new int[]{50,10,25,30,100,11};
+        tree2.addNode(a2);
+        assertFalse(tree.equals(tree2));
+    }
    
 }
