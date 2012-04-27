@@ -4,7 +4,7 @@ package binarytreeLink;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-public class Tree {
+public class Tree implements Cloneable{
     Link root = new Link();
     
     public void addNode(int val){
@@ -15,6 +15,20 @@ public class Tree {
         for(int val: a ){
             insNode(root, new Node(val));
         }
+    }
+    
+    private void insNode(Link r, Node p) {
+        if( r.x == null ){
+            r.x = p;
+        }
+        else
+            if( p.getVal() < r.x.getVal()){
+                insNode(r.x.left, p);
+            }
+            else
+            {
+                insNode(r.x.right, p);
+            }
     }
     
     public void delNode(int val){
@@ -45,10 +59,18 @@ public class Tree {
         }
     }
     
-    public void print(){
+    public void printToSOUT(){
         nPrint(root);
+    }; 
+    private void nPrint(Link r) {
+        if( r.x != null )
+        {
+            nPrint(r.x.left);
+            System.out.print(" "+r.x.getVal());
+            nPrint(r.x.right);
+        }
     }
-    ;
+    
     public int[] toArray(){
         countArr = 0;
         int[] a = new int[getCount()];
@@ -69,48 +91,39 @@ public class Tree {
     public void printLikeTree(){
         print_tree(root,0);
     }
+    private void print_tree(Link root, int l) {
+        if( root.x == null ) return;
+        
+        print_tree(root.x.right, l+1);
+        for (int i = 0; i < l; i++) {
+            System.out.print("\t");
+        }
+        System.out.print(" " + root.x.getVal()+"\n");
+        print_tree(root.x.left, l+1);
+    }
+    
     public int getCount(){
         return nCount(root);
+    }
+    
+    private int nCount(Link r) {
+        int res = 0;
+        if ( r.x != null ){
+            res = 1 + nCount(r.x.left) + nCount(r.x.right);
+        }
+        return res;
     }
     
     public int getHeight(){
         return height(root);
     }
-    private void insNode(Link r, Node p) {
-        if( r.x == null )
-        {
-            r.x = p;
-        }
-        else
-            if( p.getVal() < r.x.getVal())
-            {
-                insNode(r.x.left, p);
-            }
-            else
-            {
-                insNode(r.x.right, p);
-            }
-                
-    }
-
-    private int nCount(Link r) {
-        int res = 0;
-        if ( r.x != null ) 
-        {
-            res = 1 + nCount(r.x.left) + nCount(r.x.right);
-        }
-        return res;
-    }
-
-    private void nPrint(Link r) {
-        if( r.x != null )
-        {
-            nPrint(r.x.left);
-            System.out.print(" "+r.x.getVal());
-            nPrint(r.x.right);
+    private int height(Link r){
+        if (r.x == null) {      return 0;                            }
+        else {
+            return 1 + Math.max(height(r.x.left), height(r.x.right));
         }
     }
- 
+   
     private Link findPrevNode(Link r, int key) {
         if (r.x == null) 
         {
@@ -132,59 +145,45 @@ public class Tree {
         return r;
     }
 
-    private void print_tree(Link root, int l) {
-        if( root.x == null ) return;
-        
-        print_tree(root.x.right, l+1);
-        for (int i = 0; i < l; i++) {
-            System.out.print("\t");
-        }
-        System.out.print(" " + root.x.getVal()+"\n");
-        print_tree(root.x.left, l+1);
-    }
-
-    private Link searchDnLeft(Link r) {
-        while (r.x.left.x != null) 
-        {
+   private Link searchDnLeft(Link r) {
+        while (r.x.left.x != null) {
             r = r.x.left;
         }
         return r;
     }
-    
-     private int height(Link r){
-        if (r.x == null) {      return 0;                            }
-        else {
-            return 1 + Math.max(height(r.x.left), height(r.x.right));
-        }
-    }
-     
+      
     public boolean equals(Object obj)
     {
-        if(obj == this)
-        return true;
+        if(obj == this){
+            return true;
+        }
 
         /* obj ссылается на null */
 
-        if(obj == null)
-        return false;
+        if(obj == null){
+            return false;
+        }
 
         /* Удостоверимся, что ссылки имеют тот же самый тип */
 
         if(!(getClass() == obj.getClass()))
-        return false;
+            return false;
         else
         {
-        Tree tmp = (Tree)obj;
-        if(compare(this.root, tmp.root))
-        return true;
-        else
-        return false;
+            Tree tmp = (Tree)obj;
+            if(compare(this.root, tmp.root))
+                return true;
+            else
+                return false;
         }
     }
     
     public Tree clone(){
         Tree nTree = new Tree();
-        nClone(root, nTree);
+        if (root != null){
+            nTree.setRoot(root.clone());
+	}
+
         return nTree;
     }
     
@@ -245,5 +244,14 @@ public class Tree {
         res = compare(r1.x.right, r2.x.right);
         return res;
     }
+
+    public Link getRoot() {
+        return root;
+    }
+
+    public void setRoot(Link root) {
+        this.root = root;
+    }
     
+   
 }

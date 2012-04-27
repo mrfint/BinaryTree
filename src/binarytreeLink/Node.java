@@ -1,11 +1,15 @@
 
 package binarytreeLink;
 
-public class Node {
+public class Node implements Cloneable{
     private int val;
     public Link left = new Link();
     public Link right = new Link();
 
+    public Node() {
+    }
+
+    
     public Node(int val) {
         this.val = val;
     }
@@ -18,5 +22,17 @@ public class Node {
         this.val = val;
     }
     
-    
+    public Node clone(){
+        Node res = new Node();
+        res.setVal(val);
+        if(left!=null){
+            res.left.x = left.x.clone();
+        }
+        if(right!=null){
+            res.right.x = right.x.clone();
+        }
+        
+        
+        return res;
+    }
 }
