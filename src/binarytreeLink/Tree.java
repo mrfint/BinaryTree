@@ -112,19 +112,15 @@ public class Tree implements Cloneable{
     }
    
     private Link findPrevNode(Link r, int key) {
-        if (r.x == null) 
-        {
+        if (r.x == null){
             return r;
         }
 
-        while (r.x.getVal()!= key) 
-        {   
-            if (key < r.x.getVal())
-            {
+        while (r.x.getVal()!= key){   
+            if (key < r.x.getVal()){
                 r = r.x.left;
             }
-            else
-            {
+            else{
                 r = r.x.right;
             }
             if(r.x == null) break;
@@ -138,41 +134,6 @@ public class Tree implements Cloneable{
         }
         return r;
     }
-      
-    public Tree clone(){
-        Tree nTree = new Tree();
-        if (root != null){
-            nTree.setRoot(root.clone());
-	}
-        return nTree;
-    }
-  
-    public boolean equals(Object obj)
-    {
-        if(!(getClass() == obj.getClass()))
-            return false;
-        else
-        {
-            Tree tmp = (Tree)obj;
-            if(compare(this.root, tmp.root))
-                return true;
-            else
-                return false;
-        }
-    }
-    
-    private boolean res = true;
-    private boolean compare(Link r1, Link r2) {
-        if(!res) return false;
-        if(r1.x == r2.x){
-            return true;
-        }
-        if(r1.x.getVal()!=r2.x.getVal())    res = false;
-        res = compare(r1.x.left, r2.x.left);
-        res = compare(r1.x.right, r2.x.right);
-        return res;
-    }
-    
     
     public void showTree(JPanel p) {     
         stree(p.getGraphics(), 0 , p.getWidth(), DY, root, 0);
@@ -192,7 +153,42 @@ public class Tree implements Cloneable{
             stree( g, x, x2, y+DY, r.x.right, 1);
         }
     }
+  
+    public boolean equals(Object obj)
+    {
+        if(obj == this){
+            return true;
+        }
+        if(obj == null){
+            return false;
+        }
+        
+        if(!(getClass() == obj.getClass())){
+            return false;
+        }
+        else{
+            return root.equals(((Tree)obj).root);
+        }
+    }
+    // second variant
+    private boolean res = true;
+    private boolean compareForEq(Link r1, Link r2) {
+        if(!res) return false;
+        if(r1.x == r2.x){
+            return true;
+        }
+        if(r1.x.getVal()!=r2.x.getVal())    res = false;
+        res = compareForEq(r1.x.left, r2.x.left);
+        res = compareForEq(r1.x.right, r2.x.right);
+        return res;
+    }
     
+    public Tree clone(){
+        Tree nTree = new Tree();
+        nTree.setRoot(root.clone());
+
+        return nTree;
+    }
 
     public Link getRoot() {
         return root;

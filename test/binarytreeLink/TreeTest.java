@@ -98,7 +98,7 @@ public class TreeTest {
     }
     
     @Test
-    public void testManyEqualsNodeByKey(){
+    public void testManyEqualsNode(){
         int[] a = new int[]{50,25,10,30,100,11};
         
         Tree tree2 = new Tree();

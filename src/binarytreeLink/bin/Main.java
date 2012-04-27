@@ -1,8 +1,9 @@
 
-package view;
+package binarytreeLink.bin;
 
 import binarytreeLink.Tree;
 import binarytreeLink.controller.Controller;
+import binarytreeLink.view.ViewFrame;
 import javax.swing.JFrame;
 
 

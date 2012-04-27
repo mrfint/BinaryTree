@@ -22,6 +22,18 @@ public class Node implements Cloneable{
         this.val = val;
     }
     
+    public boolean equals(Object obj){
+        
+        if(obj == this){
+            return true;
+        }
+        Node o = (Node)obj;
+        return ( (this.val==o.val)&& 
+                 (left.equals(o.left))&&
+                 (right.equals(o.right))
+                );
+    }
+    
     public Node clone(){
         Node res = new Node();
         res.setVal(val);
@@ -31,8 +43,7 @@ public class Node implements Cloneable{
         if(right.x!=null){
             res.right.x = right.x.clone();
         }
-        
-        
+      
         return res;
     }
 }

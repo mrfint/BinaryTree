@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-import view.ViewFrame;
+import binarytreeLink.view.ViewFrame;
 
 
 public class Controller {
@@ -22,19 +22,9 @@ public class Controller {
 
     public Controller(ViewFrame mf) {
         this.mf = mf;
-        Tree tree = new Tree();
+        tree = new Tree();
         mf.addBtnsListeners(initButtonsListeners());
     }
-    
-    private void random() {
-        int n = 150;
-        tree = new Tree();
-        tree.addNode(n/2);
-        for (int i = 0; i < 20; i++) {
-             tree.addNode((int)(n-Math.random()*n));
-        }
-    }
-
     private ActionListener[] initButtonsListeners() {
         
         ActionListener btnClear = new ActionListener(){
@@ -46,7 +36,7 @@ public class Controller {
         ActionListener btnRand = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                random();
+                setRandomTree();
                 tree.showTree(mf.getJpFace());               
             }
         };
@@ -74,9 +64,14 @@ public class Controller {
             }
         };
         
-        
-
         return new ActionListener[]{btnClear,btnRand,btnSave,btnLoad}; 
     }
-    
+    private void setRandomTree() {
+        int n = 150;
+        tree = new Tree();
+        tree.addNode(n/2);
+        for (int i = 0; i < 20; i++) {
+             tree.addNode((int)(n-Math.random()*n));
+        }
+    }
 }

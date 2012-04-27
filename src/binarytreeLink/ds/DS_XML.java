@@ -11,7 +11,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class DS_XML extends DefaultHandler{
+public class DS_XML {
     public static void save(Tree tree) throws IOException{
         Converter converter = new Converter();
         FileWriter out = new FileWriter("D:\\111.xml");

@@ -1,5 +1,5 @@
 
-package view;
+package binarytreeLink.view;
 
 import binarytreeLink.Tree;
 import binarytreeLink.ds.DS_XML;

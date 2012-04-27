@@ -10,7 +10,7 @@ public class Converter{
     
     public String toXML(Tree tree){
         sb = new StringBuilder("");
-        if(tree.getRoot()!=null) nPrintXML(tree.getRoot());
+        nPrintXML(tree.getRoot());
         return sb.toString();
     }
     

@@ -11,7 +11,16 @@ public class Link implements Cloneable{
     public void setX(Node x) {
         this.x = x;
     }
-    
+    public boolean equals(Object obj){       
+
+        if(x==((Link)obj).x ){
+            return true;
+        }
+        else{
+            return x.equals(((Link)obj).x);
+        }    
+        
+    }
     
     public Link clone(){
         Link res = new Link();
