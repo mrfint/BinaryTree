@@ -35,14 +35,12 @@ public class Tree implements Cloneable{
         Link curr = findPrevNode(root, val);
         if(curr.x!=null)
         {
-            if(curr.x.right.x==curr.x.left.x)
-            {
+            if(curr.x.right.x==curr.x.left.x){
                 curr.x = null;
             }
             else
             {
-                if(curr.x.right.x == null)
-                {
+                if(curr.x.right.x == null){
                     curr.x.setVal(curr.x.left.x.getVal());
                     curr.x.left  = curr.x.left.x.left;
                 }
@@ -170,18 +168,6 @@ public class Tree implements Cloneable{
             return root.equals(((Tree)obj).root);
         }
     }
-    // second variant
-    private boolean res = true;
-    private boolean compareForEq(Link r1, Link r2) {
-        if(!res) return false;
-        if(r1.x == r2.x){
-            return true;
-        }
-        if(r1.x.getVal()!=r2.x.getVal())    res = false;
-        res = compareForEq(r1.x.left, r2.x.left);
-        res = compareForEq(r1.x.right, r2.x.right);
-        return res;
-    }
     
     public Tree clone(){
         Tree nTree = new Tree();
@@ -196,7 +182,5 @@ public class Tree implements Cloneable{
 
     public void setRoot(Link root) {
         this.root = root;
-    }
-    
-   
+    }  
 }

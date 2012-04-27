@@ -108,7 +108,7 @@ public class TreeTest {
     }
     
     @Test
-    public void testManyEqualsDifTree(){
+    public void testManyFalseEqualsTree(){
         int[] a = new int[]{50,25,10,30,100,11};
         tree.addNode(a);
         Tree tree2 = new Tree();
