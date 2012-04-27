@@ -2,27 +2,31 @@
 package view;
 
 import binarytreeLink.Tree;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import binarytreeLink.ds.DS_XML;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 public class ViewFrame extends JFrame{
     public static final int DEFAULT_WIDTH=1000;
     public static final int DEFAULT_HEIGHT=600;
-    private JButton btInit, btStart;
-    Tree tree = null;
+    private JPanel jpFace = null;
+    private JPanel buttons = null;
+    private String[] captionBut = new String[]{"Clear", "Random","Save","Load"};
     
-    public ViewFrame(Tree tree){
+    
+    public ViewFrame(){
         //Create and set up the window.
         super("VisualTree");
-        //Register model
-        this.tree = tree;
+
         //setLocationRelativeTo(this);
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         
@@ -32,34 +36,28 @@ public class ViewFrame extends JFrame{
     }
 
     
-    private void addContentPane(Container contentPane) {      
-      
-        final JPanel jpFace = new JPanel();
-        
+    private void addContentPane(Container contentPane) {       
+        jpFace = new JPanel();
         // Init buttons
-        JButton btn = new JButton("Random");
-        btn.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tree.random();
-                tree.showTree(jpFace);               
-            }
-        });
-        JButton clr = new JButton("Clear");
-        clr.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                repaint();              
-            }
-        });
-        JPanel buttons = new JPanel();
-        buttons.add(clr);
-        buttons.add(btn);
-        
+        buttons = new JPanel();
+        for (int i = 0; i < captionBut.length; i++) {
+            JButton b = new JButton(captionBut[i]);
+            buttons.add(b);
+        }
+       
         contentPane.add(jpFace, BorderLayout.CENTER);
         contentPane.add(buttons, BorderLayout.SOUTH);
     }
+
+    public void addBtnsListeners(ActionListener[] inButLs) {
+        for (int i = 0; i < buttons.getComponentCount(); i++) {
+            ((JButton)buttons.getComponent(i)).addActionListener(inButLs[i]);
+        }
+    }
+
+    public JPanel getJpFace() {
+        return jpFace;
+    }
+    
 
 }

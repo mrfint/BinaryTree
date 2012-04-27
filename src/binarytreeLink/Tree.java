@@ -57,20 +57,8 @@ public class Tree implements Cloneable{
                 }
             }
         }
-    }
-    
-    public void printToSOUT(){
-        nPrint(root);
-    }; 
-    private void nPrint(Link r) {
-        if( r.x != null )
-        {
-            nPrint(r.x.left);
-            System.out.print(" "+r.x.getVal());
-            nPrint(r.x.right);
-        }
-    }
-    
+    }   
+    private int countArr;
     public int[] toArray(){
         countArr = 0;
         int[] a = new int[getCount()];
@@ -78,7 +66,6 @@ public class Tree implements Cloneable{
         nArray(root, a);
         return a;
     }
-    private int countArr;
     private void nArray(Link r, int[] a) {
         if( r.x != null )
         {
@@ -152,20 +139,16 @@ public class Tree implements Cloneable{
         return r;
     }
       
+    public Tree clone(){
+        Tree nTree = new Tree();
+        if (root != null){
+            nTree.setRoot(root.clone());
+	}
+        return nTree;
+    }
+  
     public boolean equals(Object obj)
     {
-        if(obj == this){
-            return true;
-        }
-
-        /* obj ссылается на null */
-
-        if(obj == null){
-            return false;
-        }
-
-        /* Удостоверимся, что ссылки имеют тот же самый тип */
-
         if(!(getClass() == obj.getClass()))
             return false;
         else
@@ -178,61 +161,6 @@ public class Tree implements Cloneable{
         }
     }
     
-    public Tree clone(){
-        Tree nTree = new Tree();
-        if (root != null){
-            nTree.setRoot(root.clone());
-	}
-
-        return nTree;
-    }
-    
-    private void nClone(Link r, Tree nTree) {
-        if( r.x != null )
-        {
-            nTree.addNode(r.x.getVal());
-            nClone(r.x.right, nTree);
-            nClone(r.x.left , nTree);
-            
-        }
-    }
-
-    public void random() {
-        int n = 150;
-        root = new Link();
-        addNode(n/2);
-        for (int i = 0; i < 20; i++) {
-             addNode((int)(n-Math.random()*n));
-        }
-    }
-    
-    public void showTree(JPanel p) {
-        stree(p.getGraphics(), 0 , p.getWidth(), DY, root, 0);
-
-    }
-    final int DY = 50;
-    private void stree(Graphics g, int x1, int x2, int y, Link r, int direction) {
-        final int R = 40;
-        
-        if(r.x!=null)
-        {
-            int x = (x1+x2)/2;
-            if(direction == 0){
-                g.drawLine(x, y-10, x, y);
-            }
-            if(direction == -1){
-                g.drawLine(x2, y-(DY-R), x, y);
-            }
-            if(direction == 1){
-                g.drawLine(x1, y-(DY-R), x, y);
-            }
-            g.drawOval(x-R/2, y, R, R);
-            g.drawString(""+r.x.getVal(), x-R/4, y+R/2+5);
-            stree( g, x1, x, y+DY, r.x.left, -1);
-            
-            stree( g, x, x2, y+DY, r.x.right, 1);
-        }
-    }
     private boolean res = true;
     private boolean compare(Link r1, Link r2) {
         if(!res) return false;
@@ -244,6 +172,27 @@ public class Tree implements Cloneable{
         res = compare(r1.x.right, r2.x.right);
         return res;
     }
+    
+    
+    public void showTree(JPanel p) {     
+        stree(p.getGraphics(), 0 , p.getWidth(), DY, root, 0);
+    }
+    
+    private final int DY = 50;
+    private final int R = 40;
+    private void stree(Graphics g, int x1, int x2, int y, Link r, int d) {
+       if(r.x!=null)
+        {
+            int x = (x1+x2)/2;
+
+            g.drawLine((d==0)? x: (d == -1)? x2 : x1 , (d==0)? y-10: y-(DY-R), x, y);
+            g.drawOval(x-R/2, y, R, R);
+            g.drawString(""+r.x.getVal(), x-R/4, y+R/2+5);
+            stree( g, x1, x, y+DY, r.x.left, -1);            
+            stree( g, x, x2, y+DY, r.x.right, 1);
+        }
+    }
+    
 
     public Link getRoot() {
         return root;

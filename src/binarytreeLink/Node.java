@@ -25,10 +25,10 @@ public class Node implements Cloneable{
     public Node clone(){
         Node res = new Node();
         res.setVal(val);
-        if(left!=null){
+        if(left.x!=null){
             res.left.x = left.x.clone();
         }
-        if(right!=null){
+        if(right.x!=null){
             res.right.x = right.x.clone();
         }
         

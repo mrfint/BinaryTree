@@ -9,8 +9,8 @@ public class Converter{
     private StringBuilder sb = null;
     
     public String toXML(Tree tree){
-        sb = new StringBuilder();
-        nPrintXML(tree.getRoot());
+        sb = new StringBuilder("");
+        if(tree.getRoot()!=null) nPrintXML(tree.getRoot());
         return sb.toString();
     }
     

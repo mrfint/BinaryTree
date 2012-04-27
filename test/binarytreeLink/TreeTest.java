@@ -117,7 +117,7 @@ public class TreeTest {
         assertFalse(tree.equals(tree2));
     }
     @Test
-    public void testEqualsTree(){
+    public void testManyCloneTree(){
         int[] a = new int[]{50,25,10,30,100,11};
         tree.addNode(a);
         System.out.println("");
