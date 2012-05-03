@@ -25,6 +25,7 @@ public class Controller {
         tree = new Tree();
         mf.addBtnsListeners(initButtonsListeners());
     }
+    
     private ActionListener[] initButtonsListeners() {
         
         ActionListener btnClear = new ActionListener(){
@@ -66,6 +67,7 @@ public class Controller {
         
         return new ActionListener[]{btnClear,btnRand,btnSave,btnLoad}; 
     }
+    
     private void setRandomTree() {
         int n = 150;
         tree = new Tree();
