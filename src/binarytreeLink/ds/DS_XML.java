@@ -14,7 +14,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class DS_XML {
     public static void save(Tree tree) throws IOException{
         Converter converter = new Converter();
-        FileWriter out = new FileWriter("D:\\111.xml");
+        FileWriter out = new FileWriter("D:\\0000.xml");
         out.write("<document>\r\n");
             out.write(converter.toXML(tree));
         out.write("</document>");
@@ -25,7 +25,7 @@ public class DS_XML {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
         SAXPars saxp = new SAXPars();
-        parser.parse(new File("D:\\111.xml"), saxp);
+        parser.parse(new File("D:\\0000.xml"), saxp);
         return saxp.getResult();
     }
 }

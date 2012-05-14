@@ -4,25 +4,25 @@ package binarytreeLink;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-public class Tree implements Cloneable{
-    Link root = new Link();
+public class Tree<T extends Comparable> implements Cloneable{
+    Link<T> root = new Link<T>();
     
-    public void addNode(int val){
-        insNode(root, new Node(val));
+    public void addNode(T val){
+        insNode(root, new Node<T>(val));
     }
     
-    public void addNode(int[] a){
-        for(int val: a ){
-            insNode(root, new Node(val));
+    public void addNode(T[] a){
+        for(T val: a ){
+            insNode(root, new Node<T>(val));
         }
     }
     
-    private void insNode(Link r, Node p) {
+    private void insNode(Link<T> r, Node<T> p) {
         if( r.x == null ){
             r.x = p;
         }
         else
-            if( p.getVal() < r.x.getVal()){
+            if( ((T)p.getVal()).compareTo((T)r.x.getVal()) == -1){
                 insNode(r.x.left, p);
             }
             else
@@ -31,10 +31,12 @@ public class Tree implements Cloneable{
             }
     }
     
-    public void delNode(int val){
-        Link curr = findPrevNode(root, val);
+    public void delNode(T val){
+        Link<T> curr = findPrevNode(root, val);
+        
         if(curr.x!=null)
         {
+            //System.out.println("curr"+curr.x.getVal());
             if(curr.x.right.x==curr.x.left.x){
                 curr.x = null;
             }
@@ -46,7 +48,7 @@ public class Tree implements Cloneable{
                 }
                 else
                 {
-                    Link dnLeft = searchDnLeft(curr.x.right);
+                    Link<T> dnLeft = searchDnLeft(curr.x.right);
                     dnLeft.x.left = curr.x.left;
                     
                     curr.x.setVal(curr.x.right.x.getVal());
@@ -57,18 +59,18 @@ public class Tree implements Cloneable{
         }
     }   
     private int countArr;
-    public int[] toArray(){
+    public T[] toArray(){
         countArr = 0;
-        int[] a = new int[getCount()];
+        T[] a = (T[]) new Integer[getCount()];  ////MOCK
         
         nArray(root, a);
         return a;
     }
-    private void nArray(Link r, int[] a) {
+    private void nArray(Link<T> r, T[] a) {
         if( r.x != null )
         {
             nArray(r.x.left, a);
-            a[countArr++] = r.x.getVal();
+            a[countArr++] = (T)r.x.getVal();
             nArray(r.x.right, a);
         }
     }
@@ -91,7 +93,7 @@ public class Tree implements Cloneable{
         return nCount(root);
     }
     
-    private int nCount(Link r) {
+    private int nCount(Link<T> r) {
         int res = 0;
         if ( r.x != null ){
             res = 1 + nCount(r.x.left) + nCount(r.x.right);
@@ -109,13 +111,13 @@ public class Tree implements Cloneable{
         }
     }
    
-    private Link findPrevNode(Link r, int key) {
+    private Link<T> findPrevNode(Link<T> r, T key) {
         if (r.x == null){
             return r;
         }
 
-        while (r.x.getVal()!= key){   
-            if (key < r.x.getVal()){
+        while (r.x.getVal().equals(key)){   
+            if (key.compareTo((T)r.x.getVal())==-1){
                 r = r.x.left;
             }
             else{
@@ -126,7 +128,7 @@ public class Tree implements Cloneable{
         return r;
     }
 
-   private Link searchDnLeft(Link r) {
+   private Link<T> searchDnLeft(Link<T> r) {
         while (r.x.left.x != null) {
             r = r.x.left;
         }
@@ -180,7 +182,7 @@ public class Tree implements Cloneable{
         return root;
     }
 
-    public void setRoot(Link root) {
+    public void setRoot(Link<T> root) {
         this.root = root;
     }  
 }

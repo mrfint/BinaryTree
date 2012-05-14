@@ -14,7 +14,7 @@ public class Converter{
         return sb.toString();
     }
     
-    private void nPrintXML(Link r) {
+    private void nPrintXML(Link<Integer> r) {
         if( r.getX() != null )
         {   sb.append("<Node>");
                 sb.append("<val>").append(""+r.getX().getVal()).append("</val>");       

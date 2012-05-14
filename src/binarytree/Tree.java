@@ -119,6 +119,16 @@ public class Tree {
     public void printLikeTree(){
         print_tree(root,0);
     }
+    private void print_tree(Node root, int l) {
+        if( root == null ) return;
+        
+        print_tree(root.right, l+1);
+        for (int i = 0; i < l; i++) {
+            System.out.print("\t");
+        }
+        System.out.print(" " + root.getVal()+"\n");
+        print_tree(root.left, l+1);
+    }
     
     public int getHeight(){
         return height(root);
@@ -160,16 +170,7 @@ public class Tree {
         return r;
     }
 
-    private void print_tree(Node root, int l) {
-        if( root == null ) return;
-        
-        print_tree(root.right, l+1);
-        for (int i = 0; i < l; i++) {
-            System.out.print("\t");
-        }
-        System.out.print(" " + root.getVal()+"\n");
-        print_tree(root.left, l+1);
-    }
+    
 
     private Node searchDnLeft(Node r) {
         while (r.left != null) 

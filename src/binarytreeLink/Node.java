@@ -1,24 +1,24 @@
 
 package binarytreeLink;
 
-public class Node implements Cloneable{
-    private int val;
-    public Link left = new Link();
-    public Link right = new Link();
+public class Node<T> implements Cloneable{
+    private T val;
+    public Link<T> left = new Link<T>();
+    public Link<T> right = new Link<T>();
 
     public Node() {
     }
 
     
-    public Node(int val) {
+    public Node(T val) {
         this.val = val;
     }
 
-    public int getVal() {
+    public T getVal() {
         return val;
     }
 
-    public void setVal(int val) {
+    public void setVal(T val) {
         this.val = val;
     }
     
@@ -27,7 +27,7 @@ public class Node implements Cloneable{
         if(obj == this){
             return true;
         }
-        Node o = (Node)obj;
+        Node<T> o = (Node<T>)obj;
         return ( (this.val==o.val)&& 
                  (left.equals(o.left))&&
                  (right.equals(o.right))
@@ -35,7 +35,7 @@ public class Node implements Cloneable{
     }
     
     public Node clone(){
-        Node res = new Node();
+        Node<T> res = new Node<T>();
         res.setVal(val);
         if(left.x!=null){
             res.left.x = left.x.clone();
@@ -46,4 +46,5 @@ public class Node implements Cloneable{
       
         return res;
     }
+
 }

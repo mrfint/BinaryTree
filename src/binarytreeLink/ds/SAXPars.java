@@ -6,7 +6,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-class SAXPars extends DefaultHandler{
+class SAXPars<T> extends DefaultHandler{
     Tree tree = new Tree();
     String thisElement ;
     
