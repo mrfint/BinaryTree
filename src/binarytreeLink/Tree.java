@@ -1,4 +1,3 @@
-
 package binarytreeLink;
 
 import java.awt.Graphics;
@@ -36,7 +35,6 @@ public class Tree<T extends Comparable> implements Cloneable{
         
         if(curr.x!=null)
         {
-            //System.out.println("curr"+curr.x.getVal());
             if(curr.x.right.x==curr.x.left.x){
                 curr.x = null;
             }
@@ -61,8 +59,7 @@ public class Tree<T extends Comparable> implements Cloneable{
     private int countArr;
     public T[] toArray(){
         countArr = 0;
-        T[] a = (T[]) new Integer[getCount()];  ////MOCK
-        
+        T[] a = (T[]) new Comparable[getCount()];          
         nArray(root, a);
         return a;
     }
