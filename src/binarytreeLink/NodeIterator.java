@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class NodeIterator<T> implements Iterator<T> {
-  private final List<Iterator<T>> iters;
+  private final LinkedList<Iterator<T>> iters;
 
   public NodeIterator(Node<T> node) {
     iters = new LinkedList<Iterator<T>>();
@@ -21,14 +21,13 @@ public class NodeIterator<T> implements Iterator<T> {
   }
 
   public boolean hasNext() {
-    while (!iters.isEmpty() && !iters.get(0).hasNext())
-      iters.remove(0);
+    while (!iters.isEmpty() && !iters.getFirst().hasNext())
+      iters.removeFirst();
     return !iters.isEmpty();
   }
 
   public T next() {
-    if (!hasNext()) System.out.println("No such element");
-    return iters.get(0).next();
+    return iters.getFirst().next();
   }
 
   public void remove() {

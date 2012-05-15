@@ -15,8 +15,7 @@ class SingletonIterator<T> implements Iterator<T> {
   }
 
   public T next() {
-//    if (value == null)
-//      throw new NoSuchElementException();
+      
     T result = value;
     value = null;
     return result;

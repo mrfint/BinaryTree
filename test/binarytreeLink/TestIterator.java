@@ -22,7 +22,7 @@ public class TestIterator {
         
         Iterator it = tree.iterator();
          while (it.hasNext()) {
-             System.out.println("!"+it.next());
+             System.out.print(" "+it.next());
              
          }
      }
