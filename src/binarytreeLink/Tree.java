@@ -32,7 +32,6 @@ public class Tree<T extends Comparable> implements Cloneable{
     
     public void delNode(T val){
         Link<T> curr = findPrevNode(root, val);
-        
         if(curr.x!=null)
         {
             if(curr.x.right.x==curr.x.left.x){
@@ -55,11 +54,28 @@ public class Tree<T extends Comparable> implements Cloneable{
                 }
             }
         }
-    }   
+    }  
+    
+    private Link<T> findPrevNode(Link<T> r, T key) {
+        if (r.x == null){
+            return r;
+        }
+        while (!r.x.getVal().equals(key)){   
+            if (key.compareTo((T)r.x.getVal())==-1){
+                r = r.x.left;
+            }
+            else{
+                r = r.x.right;
+            }
+            if(r.x == null) break;
+        }
+        return r;
+    }
+    
     private int countArr;
     public T[] toArray(){
         countArr = 0;
-        T[] a = (T[]) new Comparable[getCount()];          
+        T[] a =(T[]) new Comparable(getCount());          
         nArray(root, a);
         return a;
     }
@@ -108,22 +124,7 @@ public class Tree<T extends Comparable> implements Cloneable{
         }
     }
    
-    private Link<T> findPrevNode(Link<T> r, T key) {
-        if (r.x == null){
-            return r;
-        }
-
-        while (r.x.getVal().equals(key)){   
-            if (key.compareTo((T)r.x.getVal())==-1){
-                r = r.x.left;
-            }
-            else{
-                r = r.x.right;
-            }
-            if(r.x == null) break;
-        }
-        return r;
-    }
+    
 
    private Link<T> searchDnLeft(Link<T> r) {
         while (r.x.left.x != null) {

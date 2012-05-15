@@ -33,8 +33,7 @@ public class TreeTest {
     }
     @Test
     public void testZeroToArray(){
-      Integer[] a  = tree.toArray();
-      assertEquals(0, a.length);
+        assertEquals(0,  tree.toArray().length);
     }
     //************************************************ One element
     @Test
@@ -73,6 +72,7 @@ public class TreeTest {
     }
     @Test
     public void testManyHight(){
+        
         Integer[] a = new Integer[]{new Integer(50),new Integer(25),
             new Integer(10),new Integer(30),new Integer(100),
             new Integer(11),new Integer(110),new Integer(80),
@@ -94,25 +94,38 @@ public class TreeTest {
 
         assertArrayEquals(b, tree.toArray());
     }
-//    
-//    @Test
-//    public void testManyDelLeafNodeByKey(){
-//        int[] a = new int[]{50,25,10,30,100,11};
-//        tree.addNode(a);
-//        tree.delNode(11);
-//        assertArrayEquals(new int[]{10, 25, 30, 50, 100}, tree.toArray());
-//    }
-//    
-//    @Test
-//    public void testManyDelRootNodeByKey(){
-//        int[] a = new int[]{50,25,10,30,100,11};
-//        tree.addNode(a);
-//        tree.delNode(50);
-//        assertArrayEquals(new int[]{10, 11, 25, 30, 100}, tree.toArray());
-//    }
-//    
+    
+    @Test
+    public void testManyDelLeafNodeByKey(){
+        Integer[] a = new Integer[]{new Integer(50),new Integer(25),
+            new Integer(10),new Integer(30),new Integer(100),
+        };
+        
+        tree.addNode(a);
+        tree.delNode(new Integer(10));
+       
+        Integer[] b = new Integer[]{new Integer(25),new Integer(30),
+            new Integer(50),new Integer(100),
+        };
+        assertArrayEquals(b, tree.toArray());
+    }
+    
+    @Test
+    public void testManyDelRootNodeByKey(){
+        Integer[] a = new Integer[]{new Integer(50),new Integer(25),
+            new Integer(10),new Integer(30),new Integer(100),
+        };
+        
+        tree.addNode(a);
+        tree.delNode(new Integer(50));
+        
+        Integer[] b = new Integer[]{new Integer(10), new Integer(25),new Integer(30),new Integer(100)};
+        assertArrayEquals(b, tree.toArray());
+    }
+    
     @Test
     public void testManyEqualsNode(){
+        
         Integer[] a = new Integer[]{new Integer(50),new Integer(25),
             new Integer(10),new Integer(30),new Integer(100),
         };
