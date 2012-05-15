@@ -1,9 +1,10 @@
 package binarytreeLink;
 
 import java.awt.Graphics;
+import java.util.Iterator;
 import javax.swing.JPanel;
 
-public class Tree<T extends Comparable> implements Cloneable{
+public class Tree<T extends Comparable> implements Cloneable, Iterable{
     Link<T> root = new Link<T>();
     
     public void addNode(T val){
@@ -75,8 +76,11 @@ public class Tree<T extends Comparable> implements Cloneable{
     private int countArr;
     public T[] toArray(){
         countArr = 0;
-        T[] a =(T[]) new Comparable(getCount());          
-        nArray(root, a);
+        int g = getCount();
+        T[] a =(T[]) new Comparable[getCount()];          
+        if (root.x != null){
+          nArray(root, a);
+        }
         return a;
     }
     private void nArray(Link<T> r, T[] a) {
@@ -182,5 +186,12 @@ public class Tree<T extends Comparable> implements Cloneable{
 
     public void setRoot(Link<T> root) {
         this.root = root;
-    }  
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new NodeIterator<T>(root.x);
+    }
+
+    
 }

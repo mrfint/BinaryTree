@@ -1,7 +1,9 @@
 
 package binarytreeLink;
 
-public class Node<T> implements Cloneable{
+import java.util.Iterator;
+
+public class Node<T> implements Cloneable, Iterable{
     private T val;
     public Link<T> left = new Link<T>();
     public Link<T> right = new Link<T>();
@@ -46,5 +48,12 @@ public class Node<T> implements Cloneable{
       
         return res;
     }
+
+    @Override
+    public Iterator iterator() {
+        return new NodeIterator<T>(this);
+    }
+
+    
 
 }
